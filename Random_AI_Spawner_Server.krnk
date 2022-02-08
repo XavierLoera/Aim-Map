@@ -1,0 +1,65 @@
+str[] colors = str["35833g","35830g","35832g","35831g","35834g","35835g","35836g","35837g","35838g","35839g","35840g","35841"];
+str name = "";
+obj testBot = {};
+num ranZ = 0;
+num ranY = 0;
+num offSetX = 79;
+num ranColor = 0;
+bool randCol = true;
+num scale = 3;
+num scoreMul = 1;
+
+action startOver() {
+testBot = {};
+obj[] ais = GAME.AI.list();
+	for(num i = 0; i < lengthOf ais; i++) {
+		(num) ais[i].health -= 10;
+	}
+}
+
+public action update(num delta) {
+obj data = {
+    health: 1,      
+    speed: 0,    
+    turnSpeed: 0,    
+    gravity: 0,    
+	targAI: false,   
+    targPlr: false,   
+    canMelee: false, 
+    score: scoreMul,  
+    modelScale: scale,   
+    hitBotW: 12 ,      
+    hitBoxH:1,       
+};
+if(randCol) {
+	ranColor = UTILS.randInt(1, 9);
+}
+ranZ = Math.roundToNearest(UTILS.randInt(-74, 74), 15);
+ranY = Math.roundToNearest(UTILS.randInt(0, 57), 15);
+obj[] ais = GAME.AI.list();
+	if(lengthOf ais < 5) {
+		testBot = GAME.AI.spawn(colors[ranColor],name,offSetX,ranY,ranZ,data);
+	}
+
+}
+
+public action onNetworkMessage(str id, obj data, str playerID) {
+		if(id == "off") {
+			ranColor = (num)data.color;
+			randCol = false;
+			startOver();
+}
+		if(id == "on") {
+			randCol = true;
+			startOver();
+}
+		if(id == "dis1" || id == "dis2" || id == "dis3") {
+			offSetX = (num)data.distance;
+			scoreMul = (num)data.score;
+			startOver();
+}
+		if(id == "size1" || id == "size2") {
+			scale = (num) data.size;
+			startOver();
+}	
+} 
