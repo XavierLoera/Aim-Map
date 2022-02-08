@@ -1,0 +1,240 @@
+bool popup = false;
+str divID = "";
+
+public action start() {
+	
+str popupDiv = GAME.UI.addDIV('popupTemp', false, 
+		'width:400px;height:255px;position:absolute;' +
+		'top:40%;left:50%;transform: translate(-50%, -50%);' +
+		'background-color:rgb(228, 228, 228);cursor:pointer;border-radius:4px;' +
+		'border:solid 2px rgb(106, 106, 106);'
+);
+str one =  GAME.UI.addDIV('one', false, 
+		'width:100%;height:100%;position:absolute;' +
+		'left:50%;transform: translate(-50%, -75%);'
+);
+str two =  GAME.UI.addDIV('two', false, 
+		'width:50%;height:50%;position:absolute;' +
+		'top:50%;left:100%;transform: translate(-75%, -50%);'
+);
+str three =  GAME.UI.addDIV('three', false, 
+		'width:50%;height:50%;position:absolute;' +
+		'top:50%;right:100%;transform: translate(75%, -50%);'
+);
+str four =  GAME.UI.addDIV('four', false, 
+		'width:100%;height:50%;position:absolute;' +
+		'bottom:0%;left:50%;transform: translate(-50%, 10%);'
+);
+GAME.UI.updateDIVText(popupDiv, 'Settings');
+str closeDiv = GAME.UI.addDIV('popupTempClose',true, 
+		'width:30px;height:30px;position:absolute;' +
+		'top:10px;left:10px;background-color:white;' +
+		'cursor:pointer;border-radius:4px;',
+		popupDiv
+);
+str rgbSettings = GAME.UI.addDIV('rgb',true, 
+		'color:grey;position:absolute;left:10px;top:50px;',
+		popupDiv
+);
+str TargetSize = GAME.UI.addDIV('size',true, 
+		'color:grey;position:absolute;left:10px;top:100px;',
+		popupDiv
+);
+str TargetDistance = GAME.UI.addDIV('distance',true, 
+		'color:grey;position:absolute;left:10px;top:150px;',
+		popupDiv
+);
+str rgbOn = GAME.UI.addDIV('rgbon',true, 
+		'background-color:rgb(142, 142, 142);width:50px;height:30px;border-radius:20px;' +
+		'color:black;position:absolute;left:185px;top:50px;',
+		popupDiv
+);
+str rgbOff = GAME.UI.addDIV('rgboff',true, 
+		'background-color:rgb(203, 203, 203);width:50px;height:30px;border-radius:20px;' +
+		'color:black;position:absolute;left:255px;top:50px;',
+		popupDiv
+);
+str ts1 = GAME.UI.addDIV('size_one',true, 
+		'background-color:rgb(142, 142, 142);width:30px;height:25px;border-radius:10px;' +
+		'color:black;position:absolute;left:195px;top:100px;',
+		popupDiv
+);
+str ts2 = GAME.UI.addDIV('size_two',true, 
+		'background-color:rgb(203, 203, 203);width:30px;height:25px;border-radius:10px;' +
+		'color:black;position:absolute;left:265px;top:100px;',
+		popupDiv
+);
+str td1 = GAME.UI.addDIV('distance_one',true, 
+		'background-color:rgb(142, 142, 142);width:30px;height:25px;border-radius:10px;' +
+		'color:black;position:absolute;left:195px;top:150px;',
+		popupDiv
+);
+str td2 = GAME.UI.addDIV('distance_two',true, 
+		'background-color:rgb(203, 203, 203);width:30px;height:25px;border-radius:10px;' +
+		'color:black;position:absolute;left:265px;top:150px;',
+		popupDiv
+);
+str td3 = GAME.UI.addDIV('distance_three',true, 
+		'background-color:rgb(203, 203, 203);width:30px;height:25px;border-radius:10px;' +
+		'color:black;position:absolute;left:335px;top:150px;',
+		popupDiv
+);
+
+	
+GAME.UI.updateDIVText(closeDiv, 'x');
+GAME.UI.updateDIVText(rgbSettings, 'RGB Targets:');
+GAME.UI.updateDIVText(TargetSize, 'Target Size:');
+GAME.UI.updateDIVText(TargetDistance, 'Target Distance:');
+GAME.UI.updateDIVText(rgbOn, 'on');
+GAME.UI.updateDIVText(rgbOff, 'off');
+GAME.UI.updateDIVText(ts1, '1');
+GAME.UI.updateDIVText(ts2, '2');
+GAME.UI.updateDIVText(td1, '1');
+GAME.UI.updateDIVText(td2, '2');
+GAME.UI.updateDIVText(td3, '3');
+
+
+ divID = GAME.UI.addDIV('infoText',true,
+		'color:#f1f1f1;position:absolute;top:90%;left:50%;' +
+		'transform: translate(-50%,-50%);font-size: 24px;' +
+		'border:solid 2px #fff;border-radius:4px;' +
+		'padding:10px 30px 10px 30px;background-color: rgba(0,0,0,0.2);'
+	);
+	
+GAME.UI.updateDIVText(divID, 'Press G to Open Settings');
+}
+
+public action onKeyPress(str key, num code) {
+	if (key == 'g') {
+		GAME.UI.updateDIV('popupTemp', 'display', 'block');
+		GAME.UI.updateDIV('one', 'display', 'block');
+		GAME.UI.updateDIV('two', 'display', 'block');
+		GAME.UI.updateDIV('three', 'display', 'block');
+		GAME.UI.updateDIV('four', 'display', 'block');
+		GAME.UI.updateDIVText(divID, 'Press X to Close');
+		GAME.INPUTS.unlockMouse();
+	}
+	if (key == 'x') {
+		GAME.log("close");
+		GAME.UI.updateDIV('popupTemp', 'display', 'none');
+		GAME.UI.updateDIV('one', 'display', 'none');
+		GAME.UI.updateDIV('two', 'display', 'none');
+		GAME.UI.updateDIV('three', 'display', 'none');
+		GAME.UI.updateDIV('four', 'display', 'none');
+		GAME.UI.updateDIVText(divID, 'Press G to Open Settings');
+		GAME.INPUTS.lockMouse();
+	}
+}
+
+public action onDIVClicked(str id) {
+if (id == 'popupTempClose') {
+		GAME.UI.updateDIV('popupTemp', 'display', 'none');
+		GAME.UI.updateDIV('one', 'display', 'none');
+		GAME.UI.updateDIV('two', 'display', 'none');
+		GAME.UI.updateDIV('three', 'display', 'none');
+		GAME.UI.updateDIV('four', 'display', 'none');
+		GAME.UI.updateDIVText(divID, 'Press G to Open Settings');
+		GAME.INPUTS.lockMouse();
+}
+
+if (id == 'one'){
+		GAME.UI.updateDIV('popupTemp', 'display', 'none');
+		GAME.UI.updateDIV('one', 'display', 'none');
+		GAME.UI.updateDIV('two', 'display', 'none');
+		GAME.UI.updateDIV('three', 'display', 'none');
+		GAME.UI.updateDIV('four', 'display', 'none');
+		GAME.UI.updateDIVText(divID, 'Press G to Open Settings');
+		GAME.INPUTS.lockMouse();
+}
+
+if (id == 'two'){
+		GAME.UI.updateDIV('popupTemp', 'display', 'none');
+		GAME.UI.updateDIV('one', 'display', 'none');
+		GAME.UI.updateDIV('two', 'display', 'none');
+		GAME.UI.updateDIV('three', 'display', 'none');
+		GAME.UI.updateDIV('four', 'display', 'none');
+		GAME.UI.updateDIVText(divID, 'Press G to Open Settings');
+		GAME.INPUTS.lockMouse();
+}
+
+if (id == 'three'){
+		GAME.UI.updateDIV('popupTemp', 'display', 'none');
+		GAME.UI.updateDIV('one', 'display', 'none');
+		GAME.UI.updateDIV('two', 'display', 'none');
+		GAME.UI.updateDIV('three', 'display', 'none');
+		GAME.UI.updateDIV('four', 'display', 'none');
+		GAME.UI.updateDIVText(divID, 'Press G to Open Settings');
+		GAME.INPUTS.lockMouse();
+}
+
+if (id == 'four'){
+		GAME.UI.updateDIV('popupTemp', 'display', 'none');
+		GAME.UI.updateDIV('one', 'display', 'none');
+		GAME.UI.updateDIV('two', 'display', 'none');
+		GAME.UI.updateDIV('three', 'display', 'none');
+		GAME.UI.updateDIV('four', 'display', 'none');
+		GAME.UI.updateDIVText(divID, 'Press G to Open Settings');
+		GAME.INPUTS.lockMouse();
+}
+
+if(id == 'rgboff') {
+	if(GAME.UI.getProp('rgbon', 'background-color') == "rgb(142, 142, 142)") {
+		GAME.UI.updateDIV('rgbon', 'background-color', 'rgb(203, 203, 203)');
+		GAME.UI.updateDIV('rgboff', 'background-color', 'rgb(142, 142, 142)');
+		GAME.NETWORK.send("off", {
+			color: 0
+		});
+	}
+}
+
+if(id == 'rgbon') {
+	if(GAME.UI.getProp('rgboff', 'background-color') == "rgb(142, 142, 142)") {
+		GAME.UI.updateDIV('rgboff', 'background-color', 'rgb(203, 203, 203)');
+		GAME.UI.updateDIV('rgbon', 'background-color', 'rgb(142, 142, 142)');
+		GAME.NETWORK.send("on", {
+		});
+	}
+}
+if(id == 'size_two') {
+	if(GAME.UI.getProp('size_one', 'background-color') == "rgb(142, 142, 142)") {
+		GAME.UI.updateDIV('size_one', 'background-color', 'rgb(203, 203, 203)');
+		GAME.UI.updateDIV('size_two', 'background-color', 'rgb(142, 142, 142)');
+		GAME.NETWORK.send("size2", {size: 4});
+	}
+}
+
+if(id == 'size_one') {
+	if(GAME.UI.getProp('size_two', 'background-color') == "rgb(142, 142, 142)") {
+		GAME.UI.updateDIV('size_two', 'background-color', 'rgb(203, 203, 203)');
+		GAME.UI.updateDIV('size_one', 'background-color', 'rgb(142, 142, 142)');
+		GAME.NETWORK.send("size1", {size: 3});
+		}
+	}
+
+if(id == 'distance_one') {
+	if(GAME.UI.getProp('distance_one', 'background-color') == "rgb(203, 203, 203)") {
+		GAME.UI.updateDIV('distance_three', 'background-color', 'rgb(203, 203, 203)');
+		GAME.UI.updateDIV('distance_two', 'background-color', 'rgb(203, 203, 203)');
+		GAME.UI.updateDIV('distance_one', 'background-color', 'rgb(142, 142, 142)');
+		GAME.NETWORK.send("dis1", {distance: 79, score: 1});
+		}
+	}
+
+if(id == 'distance_two') {
+	if(GAME.UI.getProp('distance_two', 'background-color') == "rgb(203, 203, 203)") {
+		GAME.UI.updateDIV('distance_three', 'background-color', 'rgb(203, 203, 203)');
+		GAME.UI.updateDIV('distance_one', 'background-color', 'rgb(203, 203, 203)');
+		GAME.UI.updateDIV('distance_two', 'background-color', 'rgb(142, 142, 142)');
+		GAME.NETWORK.send("dis2", {distance: 158, score: 2});
+		}
+	}
+
+if(id == 'distance_three') {
+	if(GAME.UI.getProp('distance_three', 'background-color') == "rgb(203, 203, 203)") {
+		GAME.UI.updateDIV('distance_two', 'background-color', 'rgb(203, 203, 203)');
+		GAME.UI.updateDIV('distance_one', 'background-color', 'rgb(203, 203, 203)');
+		GAME.UI.updateDIV('distance_three', 'background-color', 'rgb(142, 142, 142)');
+		GAME.NETWORK.send("dis3", {distance: 237, score: 3});
+	}
+}
+}
